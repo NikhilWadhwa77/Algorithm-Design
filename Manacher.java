@@ -1,14 +1,13 @@
- package ADI.Algorithms;
+class Solution {
+    public String longestPalindrome(String s) {
 
-import java.util.Arrays;
+        if(s.length() < 2){
+            // System.out.println(0);
+            return s;
+        }
 
-public class Manacher {
-    public static void main(String[] args) {
-        String s = "abba";
-
-        if(s.isEmpty()){
-            System.out.println(0);
-            return;
+        if(s.length() == 2 && s.charAt(0) != s.charAt(1)){
+            return s.substring(0,1);
         }
 
         String str = "";
@@ -20,11 +19,13 @@ public class Manacher {
         }
         str += "#$";
 
-        System.out.println(str);
+        // System.out.println(str);
 
         int[] arr = new int[str.length()];
         int left, right, count;
         int maxCount = 0;
+        int start = 0;
+        int end = 0;
 
         for(int i = 1; i < str.length()-1; i++){
             left = i-1;
@@ -40,11 +41,27 @@ public class Manacher {
             }else{
                 arr[i] = count - (count/2 + 1);
             }
-            maxCount = Math.max(maxCount,arr[i]);
+            if(arr[i] > maxCount){
+                maxCount = arr[i];
+                start = left;
+                end = right;
+            }
+//            maxCount = Math.max(maxCount,arr[i]);
         }
 
-        System.out.println(Arrays.toString(arr));
-        System.out.println(maxCount);
+        // System.out.println(Arrays.toString(arr));
+        // System.out.println(maxCount);
+        
+        String ans = "";
 
+        if(maxCount == 1){
+            return str.substring(end,end+1);
+        }else{
+            for(int i = start+2; i < end; i += 2){
+                // System.out.print(str.charAt(i));
+                ans += str.charAt(i);
+            }
+            return ans;
+        }
     }
 }
