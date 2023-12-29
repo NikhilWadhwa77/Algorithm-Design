@@ -30,7 +30,6 @@ public class HeapSort {
     public static void main(String[] args) {
 
         int[] arr = {4,3,2,5,1};
-
 //        initial build of min heap from unsorted array
         for(int i = arr.length/2; i >= 0; i--){
             sort(arr,i);
